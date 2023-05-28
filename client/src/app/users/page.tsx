@@ -41,7 +41,7 @@ export default function UsersPage() {
     } catch (e) {
       if (axios.isAxiosError(e)) {
         const axiosError = e as AxiosError;
-        setErrorMessage(axiosError.message);
+        setErrorMessage(axiosError.response?.data as string || 'An error occured.');
       } else {
         setErrorMessage("An error occured");
         console.log(e);
@@ -93,9 +93,9 @@ export default function UsersPage() {
           }
         />
 
-        <p className="mt-6 text-base leading-7 text-red-600">{errorMessage}</p>
-
         {userDetails?.isAdmin && <AddUserForm onAddUser={onAddUser} />}
+
+        <p className="mt-6 text-base leading-7 text-red-600">{errorMessage}</p>
       </div>
     </div>
   );
